@@ -1,5 +1,7 @@
 # 🤖 AI DevOps Automation
 
+![CI](https://github.com/Baho73/ai-devops-automation/actions/workflows/ci.yml/badge.svg)
+
 > Teach AI to manage your server and eliminate DevOps routine
 
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
