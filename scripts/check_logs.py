@@ -60,7 +60,7 @@ def check_logs(container_name=None, lines=50):
         print(logs)
 
         if errors:
-            print(f"\n=== ⚠️ STDERR ===")
+            print("\n=== ⚠️ STDERR ===")
             print(errors)
 
         # Analyze for errors

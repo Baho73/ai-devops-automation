@@ -9,6 +9,8 @@ import sys
 import paramiko
 from dotenv import load_dotenv
 
+from safety import assert_safe
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -62,6 +64,7 @@ def deploy_file(local_path, remote_path, container_path=None):
         if container_path:
             print(f"🐳 Copying to Docker container {CONTAINER_NAME}...")
             cmd = f"docker cp {remote_path} {CONTAINER_NAME}:{container_path}"
+            assert_safe(cmd)  # refuse if container/path was poisoned with an injection
             stdin, stdout, stderr = ssh.exec_command(cmd)
             stdout.read()
             print("✅ Copied to container")
@@ -69,6 +72,7 @@ def deploy_file(local_path, remote_path, container_path=None):
             # Restart container
             print(f"🔄 Restarting container {CONTAINER_NAME}...")
             cmd = f"docker compose restart {CONTAINER_NAME}"
+            assert_safe(cmd)
             stdin, stdout, stderr = ssh.exec_command(cmd)
             stdout.read()
             print("✅ Container restarted")
